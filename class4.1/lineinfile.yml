@@ -1,0 +1,14 @@
+---
+- name: Test playbook to run 
+  hosts: all
+  user: ec2-user 
+  become: true
+  become_method: sudo
+  tasks:
+
+  - name: Create a file with a content 
+    ansible.builtin.lineinfile:
+      path: /tmp/testfile
+      regexp: '^192.168.1.99 foo.lab.net foo'
+      line: '172.16.1.99 foo.lab.net foo'
+      

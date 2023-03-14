@@ -1,0 +1,22 @@
+---
+- name: Test playbook to run 
+  hosts: all
+  user: ec2-user 
+  become: true
+  become_method: sudo
+  tasks:
+  # - name: Print all available facts
+  #   ansible.builtin.debug:
+  #     var: ansible_facts['kernel']
+  
+  - name: Install httpd on Amazon
+    when: ansible_facts['kernel'] == "4.14.232-177.418.amzn2.x86_64"
+    ansible.builtin.package:
+      name:  kernel
+      state: latest    # absent  # latest # removed
+
+  # - name: Install apache on Ubuntu
+  #   when: ansible_facts['distribution'] == "Ubuntu"
+  #   ansible.builtin.apt:
+  #     name:  apache2
+  #     state: present    # absent  # latest # removed    

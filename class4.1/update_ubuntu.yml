@@ -1,0 +1,13 @@
+---
+- name: Test playbook to run 
+  hosts: all
+  user: ec2-user 
+  become: true
+  become_method: sudo
+  tasks:
+
+  - name: Install apache on Ubuntu
+    when: ansible_facts['distribution'] == "Ubuntu"
+    ansible.builtin.apt:
+      name:  "*"
+      state: latest    # absent  # latest # removed 

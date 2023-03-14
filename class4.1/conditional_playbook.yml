@@ -5,16 +5,24 @@
   become: true
   become_method: sudo
   tasks:
-  - name: Print all available facts
-    ansible.builtin.debug:
-      var: ansible_facts['kernel']
+  # - name: Print all available facts
+  #   ansible.builtin.debug:
+  #     var: ansible_facts['version']['puthon']['major']
 
 
 
 
 
 
-  # - name: Install telnet 
-  #   ansible.builtin.yum:
-  #     name:  telnet
-  #     state: present    # absent  # latest # removed
+
+  - name: Install httpd on Amazon
+    when: ansible_facts['distribution'] == "Amazon"
+    ansible.builtin.yum:
+      name:  httpd
+      state: present    # absent  # latest # removed
+
+  - name: Install apache on Ubuntu
+    when: ansible_facts['distribution'] == "Ubuntu"
+    ansible.builtin.apt:
+      name:  apache2
+      state: present    # absent  # latest # removed    
